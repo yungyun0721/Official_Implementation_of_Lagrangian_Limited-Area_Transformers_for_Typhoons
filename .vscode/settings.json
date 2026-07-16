@@ -1,0 +1,43 @@
+{
+    "python.analysis.typeCheckingMode": "basic",
+    "files.watcherExclude": {
+        "**/__pycache__/**": true,
+        "**/eval_logs/**": true,
+        "**/lightning_logs/checkpoints/**": true,
+        "**/slurm_output/**": true,
+        "figures/**": true,
+        "onnx/**": true,
+        "pretrained/**": true,
+        "data/**": true,
+        "exp/*/**": true,
+        "log/**": true,
+        "outdated/**": true,
+    },
+    "cSpell.words": [
+        "arange",
+        "destandardize",
+        "downsample",
+        "GELU",
+        "meshgrid",
+        "ndarray",
+        "optim",
+        "savez",
+        "softmax",
+        "Swin",
+        "tcwv",
+        "unsqueeze"
+    ],
+    "tensorBoard.logDirectory": "lightning_logs/",
+    "python.analysis.autoFormatStrings": false,
+    "python.analysis.exclude": [
+        "figures/**",
+        "data/**",
+        "onnx/**",
+        "log/**",
+        "lightning_logs/**",
+        "exp/*/**",
+        "env_building/**",
+        "outdated/**",
+    ],
+    "editor.inlineSuggest.showToolbar": "never"
+}
