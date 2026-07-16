@@ -23,8 +23,7 @@ This repository contains the official implementation for
 - Inference: regional forecasting with external boundary conditions
 
 The complete FCNV2 two-way coupling framework and visualization examples are available in:
-[FCNV2_couple_with_LLAT.ipynb](FCNV2_couple_with_LLAT.ipynb) and 
-> https://github.com/yungyun0721/couple_FCNV2_LLAT
+[FCNV2_couple_with_LLAT.ipynb](FCNV2_couple_with_LLAT.ipynb) and https://github.com/yungyun0721/couple_FCNV2_LLAT
 
 ## Installation
 
