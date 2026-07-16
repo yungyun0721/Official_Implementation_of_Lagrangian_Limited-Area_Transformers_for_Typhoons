@@ -30,7 +30,6 @@ hardcopy.0
 **/*.out
 
 # Images
-*.png
 *.jpg
 *.jpeg
 *.gif

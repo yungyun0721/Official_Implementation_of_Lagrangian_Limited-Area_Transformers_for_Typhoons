@@ -1,6 +1,5 @@
-# DLAMP.ty
-
-**Deep Learning for Atmospheric Modeling Predictions**
+# Official_Implementation_of_Lagrangian_Limited-Area_Transformers_for_Typhoons (LLAT.ty)
+**TC following forecasting model**
 
 ## Table of Contents
 - [Overview](#overview)
@@ -8,15 +7,11 @@
 - [Usage](#usage)
   - [Training the Model](#training-the-model)
   - [Inference](#inference)
-  - [Exporting to ONNX](#exporting-to-onnx)
-  - [Plotting Results](#plotting-results)
-- [Dependencies](#dependencies)
 - [Scripts](#scripts)
 - [Contributing](#contributing)
 
 ## Overview
-
-This repository is the official Implementation of Lagrangian Limited-Area Transformers for Typhoons (LLAT.ty). This repository is designed for training the LLAT.ty model. It leverages GPU resources to perform high-performance computations, includes tools for data conversion, model training, and visualization.
+This repository is the official Implementation of Lagrangian Limited-Area Transformers for Typhoons (LLAT.ty). This repository is designed for training the LLAT.ty model. It leverages GPU resources to perform high-performance computations, includes tools for data conversion, model training, (inference and visualization). the inference and visualization is in FCNV2_couple_with_LLAT.sh and more detailed in https://github.com/yungyun0721/couple_FCNV2_LLAT.
 
 ## Installation
 
@@ -25,11 +20,18 @@ To set up the project environment:
 1. **Clone the Repository**:
    ```bash
    git lfs install
-   git clone DLAMP.ty
-   cd DLAMP.ty
+   git clone Official_Implementation_of_Lagrangian_Limited-Area_Transformers_for_Typhoons
+   mv Official_Implementation_of_Lagrangian_Limited-Area_Transformers_for_Typhoons LLAT.ty
+   cd LLAT.ty
+   ```
+
+   *if no git lfs can install by conda*
+   ```bash
+   conda install -c conda-forge git-lfs
    ```
 
 2. **Set Up the Environment**:
+   Evironmental 1:
    - Ensure you have `micromamba` installed. If not, follow the installation instructions from [Micromamba's documentation](https://mamba.readthedocs.io/en/latest/installation.html).
    - Create and activate the `ty` environment:
      ```bash
@@ -37,92 +39,48 @@ To set up the project environment:
      micromamba activate ty
      ```
 
+   Evironmental 2:
+   - Ensure you have `conda` installed.
+   - Create and activate the `ty` environment:
+     ```bash
+     conda env create -f env_building/min-win_conda_env.yaml
+     conda activate ty
+     ```
+
+
 ## Usage
+LLAT is a regional, TC-following model designed for tropical cyclone forecasting.  
+Its architecture is conceptually similar to Pangu-Weather, but it operates on a moving regional domain centered on the tropical cyclone.
 
-- **Inference:**
-  ```bash
-  python inferencer.py -f inferencer.yaml
-  ```
+![LLAT model structure](demo_figures/figure1_model_structure.png)
 
-  modify inferencer.yaml to control inferencer behavior, examples:
-  ```yaml
-  # forecast from a single ERA5 ty-centered inital condiction
-  # model
-  model_config: onnx/v57_5d.yaml
+The variables of LLAT model
 
-  output_path: "path_to_save_model_output" # auto decided if not provided
-
-  # dataset
-  forecast_input: /nwpr/wfc/com136/data/sstfillc_ERA5_TC_plus/2019/201901W/201901W_2019011118_15kt_combined.nc
-  combined_nc_input: True
-  plugin_additional_vars: True
-
-  # hindcast if t0_only is False
-  t0_only: True
-
-  # fix_inference_steps can be False or a positive int, need to be an int if forecasting
-  fix_inference_steps: 120
-
-  # replace_bdry need to be False if forecasting
-  replace_bdry: False
-
-  # get correct landmask etc. for every step
-  recalc_additions: True
-
-  # fix boundary conditions with initial data
-  replace_w_init_bdry: False
-  dont_replace: bool | dict[str, list[str]] = False
-
-  fix_location: False
-  uniformize_lonlat: True
-  specify_resolution: 0.25
-  # specify_resolution: bool | float | tuple[float, float] = False
-  plain_lat: False
-  # True: auto mode, set all lat values to it's mean before entering the next step
-  # plain_lat: bool | float = True
-  # float: set all lat values to this value
-  # plain_lat: bool | float = 5.0
-
-  # Change these accordingly
-  skip: False
-  skip_till: "202010W"
-  stop_early: False
-  last_case: "202026W_2020122512"
-
-  ```
-
-  Using CWA HPC:
-  ```bash
-  pjsub cwa_infer.sh
-  ```
-  
-  - **Note:** Edit `cwa_infer.sh` if you want to use a different ONNX model or inference script.
+![LLAT dataset](demo_figures/dataset.png)
 
 - **Training the Model:**
   ```bash
   python train.py
   ```
-  If using CWA HPC:
+  If using nano5 HPC:
   ```bash
-  pjsub cwa_train.sh
+  sbatch nano5_train_paral.sh
   ```
   This script is tailored for a specific computing cluster using the PJM job scheduler with the following parameters:
-  - **Resource Unit**: `rscunit_pg01`
-  - **Resource Group**: `gpu-rd-large`
+  - **partition**: `normal2` or `normal`
   - **Number of Nodes**: 1 GPU node
-  - **CPU Cores**: 32
-  - **MPI Processes**: 32
-  - **GPU Cards**: 8
-  - **Elapse Time**: 240 hours
+  - **GPU Cards**: 4
   - **Log Output**: Directed to `log/test.%j.out` and `log/test.%j.err`
 
 - **Exporting to ONNX:**
   ```bash
   python export_onnx.py --ckpt_path path/to/checkpoint.ckpt --output_path path/to/output.onnx
   ```
+- **Inference:**
+  The LLAT.ty is a regional model. therefore, inferencing the model need global DWP model to provide the boundary condition. The example is 2-way interaction with FCNV2.
+  the code is in *FCNV2_couple_with_LLAT.ipynb*. It can work in google colab. 
+  - **Note:** The introduce of LLAT.ty inference can look at `https://github.com/yungyun0721/couple_FCNV2_LLAT`
 
-- **Plotting Results:**
-  - Use scripts in the `plotting_scripts/` directory for visualizing results.
 
 ## Scripts
 
@@ -130,22 +88,16 @@ Here are the scripts available in this project:
 
 - **Training**: 
   - `train.py`
-  - `cwa_train.sh` (for CWA HPC)
+  - `nano5_train_paral.sh` (for nano5 HPC)
 
-- **Inference**: 
-  - `cwa_infer.sh` (uses `inference_onnx.py`)
+- **Inference and Result Plotting**: 
+  - `FCNV2_couple_with_LLAT.ipynb` (detailed `https://github.com/yungyun0721/couple_FCNV2_LLAT`)
 
-- **Data Conversion**: `convert_nc_to_pt.py`
+![LLAT result plotting](demo_figures/figure2_TC_plan_view.png)
+
 
 - **Exporting to ONNX**: `export_onnx.py`
 
-- **Inference with ONNX**: 
-  - `inference_onnx.py` (with or without boundary replacement)
-  - `inference_onnx_161.py`
-
-- **Plotting**: Scripts in the `plotting_scripts/` directory
-
-**Note:** Please ignore the contents of the `outdated/` folder as they are not relevant to the current project state.
 
 ## Contributing
 
