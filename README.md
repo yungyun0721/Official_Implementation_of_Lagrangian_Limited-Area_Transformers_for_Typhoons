@@ -11,7 +11,20 @@
 - [Contributing](#contributing)
 
 ## Overview
-This repository is the official Implementation of Lagrangian Limited-Area Transformers for Typhoons (LLAT.ty). This repository is designed for training the LLAT.ty model. It leverages GPU resources to perform high-performance computations, includes tools for data conversion, model training, (inference and visualization). the inference and visualization is in FCNV2_couple_with_LLAT.sh and more detailed in https://github.com/yungyun0721/couple_FCNV2_LLAT.
+LLAT.ty (Lagrangian Limited-Area Transformers for Typhoons) is a regional AI weather prediction model specifically designed for tropical cyclone forecasting.
+
+Unlike conventional global AI weather models, LLAT.ty operates on a **TC-following moving domain**, allowing the network to continuously focus on the tropical cyclone throughout the forecast. The model is designed for high-resolution regional prediction while maintaining compatibility with global numerical weather prediction (NWP) models through boundary coupling.
+
+This repository contains the official implementation for
+
+- data preprocessing
+- model training
+- ONNX export
+- regional forecasting with external boundary conditions
+
+The complete FCNV2 two-way coupling framework and visualization examples are available in:
+
+> https://github.com/yungyun0721/couple_FCNV2_LLAT
 
 ## Installation
 
@@ -31,7 +44,7 @@ To set up the project environment:
    ```
 
 2. **Set Up the Environment**:
-   Evironmental 1:
+   Option 1 — Micromamba
    - Ensure you have `micromamba` installed. If not, follow the installation instructions from [Micromamba's documentation](https://mamba.readthedocs.io/en/latest/installation.html).
    - Create and activate the `ty` environment:
      ```bash
@@ -39,7 +52,7 @@ To set up the project environment:
      micromamba activate ty
      ```
 
-   Evironmental 2:
+   Option 2 — Conda
    - Ensure you have `conda` installed.
    - Create and activate the `ty` environment:
      ```bash
@@ -79,7 +92,7 @@ The variables of LLAT model
 - **Inference:**
   The LLAT.ty is a regional model. therefore, inferencing the model need global DWP model to provide the boundary condition. The example is 2-way interaction with FCNV2.
   the code is in *FCNV2_couple_with_LLAT.ipynb*. It can work in google colab. 
-  - **Note:** The introduce of LLAT.ty inference can look at `https://github.com/yungyun0721/couple_FCNV2_LLAT`
+  - **Note:** The notebook can also be executed directly on Google Colab.For complete operational workflows, visualization, and two-way coupling, please visit `https://github.com/yungyun0721/couple_FCNV2_LLAT`
 
 
 ## Scripts
