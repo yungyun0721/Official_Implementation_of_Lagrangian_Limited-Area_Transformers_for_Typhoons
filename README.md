@@ -11,18 +11,18 @@
 - [Contributing](#contributing)
 
 ## Overview
- - LLAT.ty (Lagrangian Limited-Area Transformers for Typhoons) is a regional AI weather prediction model specifically designed for tropical cyclone forecasting.
+LLAT.ty (Lagrangian Limited-Area Transformers for Typhoons) is a regional AI weather prediction model specifically designed for tropical cyclone forecasting.
 
-- Unlike conventional global AI weather models, LLAT.ty operates on a **TC-following moving domain**, allowing the network to continuously focus on the tropical cyclone throughout the forecast. The model is designed for regional prediction while maintaining compatibility with global numerical weather prediction (NWP) models through boundary coupling.
+Unlike conventional global AI weather models, LLAT.ty operates on a **TC-following moving domain**, allowing the network to continuously focus on the tropical cyclone throughout the forecast. The model is designed for regional prediction while maintaining compatibility with global numerical weather prediction (NWP) models through boundary coupling.
 
-- This repository contains the official implementation for
+This repository contains the official implementation for
 
 - data preprocessing
 - model training
 - ONNX export
 - regional forecasting with external boundary conditions
 
-- The complete FCNV2 two-way coupling framework and visualization examples are available in:
+The complete FCNV2 two-way coupling framework and visualization examples are available in:
 
 > https://github.com/yungyun0721/couple_FCNV2_LLAT
 
@@ -30,7 +30,7 @@
 
 To set up the project environment:
 
-- 1. **Clone the Repository**:
+1. **Clone the Repository**:
    ```bash
    git lfs install
    git clone Official_Implementation_of_Lagrangian_Limited-Area_Transformers_for_Typhoons
@@ -43,7 +43,7 @@ To set up the project environment:
    conda install -c conda-forge git-lfs
    ```
 
-- 2. **Set Up the Environment**:
+2. **Set Up the Environment**:
    Option 1 — Micromamba
    - Ensure you have `micromamba` installed. If not, follow the installation instructions from [Micromamba's documentation](https://mamba.readthedocs.io/en/latest/installation.html).
    - Create and activate the `ty` environment:
@@ -62,7 +62,7 @@ To set up the project environment:
 
 
 ## Usage
-- LLAT is a regional, TC-following model designed for tropical cyclone forecasting. Its architecture is conceptually similar to Pangu-Weather, but it operates on a moving regional domain centered on the tropical cyclone.
+LLAT is a regional, TC-following model designed for tropical cyclone forecasting. Its architecture is conceptually similar to Pangu-Weather, but it operates on a moving regional domain centered on the tropical cyclone.
 
 ![LLAT model structure](demo_figures/figure1_model_structure.png)
 
