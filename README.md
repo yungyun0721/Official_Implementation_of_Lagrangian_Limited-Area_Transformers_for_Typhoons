@@ -1,5 +1,6 @@
 # Official_Implementation_of_Lagrangian_Limited-Area_Transformers_for_Typhoons (LLAT.ty)
 **TC following forecasting model**
+[![DOI](https://zenodo.org/badge/1302508283.svg)](https://doi.org/10.5281/zenodo.21451206)
 
 ## Table of Contents
 - [Overview](#overview)
