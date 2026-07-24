@@ -50,7 +50,7 @@ data:
   persistent_workers: true
   # multiprocessing_context: spawn
   combined_nc_input: true
-  root_dir: '/work/yungyun0721/TC_dataset/ERA5/sstfillc_ERA5_TC_plus'
+  root_dir: '/work/yungyun0721/TC_dataset/DLDA_data/ERA5_DLDA_data/labeled_and_obs_data_with_vt_vr'
   # data_tar: '/nwpr/wfc/com136/data/DLAMP.ty.plus.tar'
   # fast_dir: '/dev/shm/DLAMP.ty'
   stat_mean_file: 'utils/stat_mean.nc'
